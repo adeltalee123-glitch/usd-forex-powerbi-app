@@ -1,0 +1,2 @@
+# Zero-dependency MVP.
+# Uses Python standard library only.

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: usd-forex-powerbi-app
+    runtime: python
+    plan: free
+    rootDir: .
+    buildCommand: "python -m compileall app"
+    startCommand: "python -m app.server"
+    healthCheckPath: /api/status
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+      - key: SEED_SAMPLE_DATA_ON_STARTUP
+        value: "1"

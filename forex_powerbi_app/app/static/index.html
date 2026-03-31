@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>USD Forex Data API</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="hero">
+        <p class="eyebrow">Power BI Ready</p>
+        <h1>USD Forex Data Service</h1>
+        <p class="lede">
+          Filter USD-related forex pairs, preview the dataset, and connect the same
+          API directly into Power BI.
+        </p>
+        <div id="statusCard" class="status-card">Loading status...</div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Build Query</h2>
+          <p>Use these filters for the website preview or your Power BI endpoint. Live Dukascopy mode supports the website-style granularities, with shorter limits for very fine intervals.</p>
+        </div>
+
+        <form id="queryForm" class="query-grid">
+          <label>
+            Range Mode
+            <select id="rangeMode" name="range_mode">
+              <option value="quick" selected>Quick Range</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </label>
+
+          <label id="yearsGroup">
+            Years
+            <select id="years" name="years">
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5" selected>5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+            </select>
+          </label>
+
+          <label>
+            Granularity
+            <select id="granularity" name="granularity"></select>
+          </label>
+
+          <label>
+            Offer Side
+            <select id="offerSide" name="offer_side">
+              <option value="BOTH" selected>BOTH</option>
+              <option value="BID">BID</option>
+              <option value="ASK">ASK</option>
+            </select>
+          </label>
+
+          <label>
+            Source Mode
+            <select id="sourceMode" name="source">
+              <option value="live" selected>Live Dukascopy</option>
+              <option value="seed">Seed Fallback</option>
+            </select>
+          </label>
+
+          <label id="startDateGroup">
+            Start Date
+            <input id="startDate" name="start_date" type="date" />
+          </label>
+
+          <label id="endDateGroup">
+            End Date
+            <input id="endDate" name="end_date" type="date" />
+          </label>
+
+          <p id="rangeHint" class="full-width">
+            Quick Range uses the selected number of years and sets the end date to today.
+          </p>
+
+          <label class="full-width">
+            Pair Selection
+            <select id="pairSelect" name="pairSelect" multiple size="10"></select>
+          </label>
+
+          <div class="actions full-width">
+            <button type="button" id="useAllPairs">Use All USD Pairs</button>
+            <button type="submit" class="primary">Preview Data</button>
+            <button type="button" id="downloadCsv">Download CSV</button>
+          </div>
+
+          <p id="pairFeedback" class="full-width"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Power BI Endpoint</h2>
+          <p>Copy this URL into Power BI Web or CSV import.</p>
+        </div>
+        <textarea id="endpointOutput" readonly></textarea>
+        <div class="actions">
+          <button type="button" id="copyEndpoint">Copy API URL</button>
+        </div>
+        <p id="copyFeedback"></p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Preview</h2>
+          <p id="resultsMeta">No query run yet.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pair</th>
+                <th>Timestamp</th>
+                <th>Bid Close</th>
+                <th>Ask Close</th>
+                <th>Spread</th>
+                <th>Granularity</th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
